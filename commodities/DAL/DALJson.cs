@@ -21,7 +21,7 @@ namespace commodities.DAL
         public DALJson(int jsonFileId)
         {
             _jsonFileId = jsonFileId;
-            _jsonDataObject = JObject.Parse(File.ReadAllText(Path.Combine(@"..\..\Data\", $"level{_jsonFileId}.json")));
+            _jsonDataObject = JObject.Parse(File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Data/", $"level{_jsonFileId}.json")));
 
         }
         /// <summary>

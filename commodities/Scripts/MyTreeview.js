@@ -3,10 +3,19 @@ $(document).ready(function () {
 
     $(".collapsible").live("click", function (e) {
         e.preventDefault();
-
+        var y = $(this);
+        var path="";
+        var x = function (y) { 
+            if(y.parent().attr('name')!=null)
+            {
+                path = y.parent().attr('name') + '\\' + path;
+                y = x(y.parent().parent());
+            }
+        }
+        alert(path);
         var this1 = $(this); // Get Click item 
         var data = {
-            pid: $(this).parent().attr('name')
+            nodePath: $(this).parent().attr('name')
         };
         
         var isLoaded = $(this1).attr('data-loaded'); // Check data already loaded or not
@@ -16,21 +25,25 @@ $(document).ready(function () {
 
             // Now Load Data Here 
             $.ajax({
-                url: "api/Commodities/getNode",
+                url: "/api/Commodities/getNode",
                 type: "GET",
                 data: data,
                 dataType: "json",
-                success: function (d) {                    
+                success: function (obj) {
                     $(this1).removeClass("loadingP");
-
-                    if (d.length > 0) {
+                    if (!obj.Successful)
+                    {
+                        alert(obj.Message);
+                    }
+                    var data = obj.Data;
+                    if (data.ChildNodes.length > 0) {
 
                         var $ul = $("<ul></ul>");
-                        $.each(d, function (i, ele) {
+                        $.each(data.ChildNodes, function (i, ele) {
                             $ul.append(
                                     $("<li></li>").append(
-                                        "<span class='collapse collapsible' data-loaded='false' pid='"+ele.MenuID+"'>&nbsp;</span>" + 
-                                        "<span><a href='"+ele.NavURL+"'>"+ele.MenuName+"</a></span>"
+                                        "<span class='collapse collapsible' data-loaded='false' Name='"+ele.Name+"'>&nbsp;</span>" + 
+                                        "<span>" + ele.Name + "</span>"
                                     )
                                 )
                         });
