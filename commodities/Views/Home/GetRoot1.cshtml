@@ -1,0 +1,88 @@
+﻿@model commodities.Models.Node
+@{
+    ViewBag.Title = "GetRoot";
+}
+
+<h2>GetRoot</h2>
+
+<style>
+    .loadingP {
+        background-image: url('../Images/generated-image.gif');
+        width: 15px;
+        display: inline-block;
+    }
+
+    .collapse {
+        width: 15px;
+        background-image: url('../Images/ui-icons_454545_256x240.png');
+        background-repeat: no-repeat;
+        background-position: -36px -17px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .expand {
+        width: 15px;
+        background-image: url('../Images/ui-icons_454545_256x240.png');
+        background-repeat: no-repeat;
+        background-position: -50px -17px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .treeview ul {
+        font: 14px Arial, Sans-Serif;
+        margin: 0px;
+        padding-left: 20px;
+        list-style: none;
+    }
+
+    .treeview > li > a {
+        font-weight: bold;
+    }
+
+    .treeview li a {
+        padding: 4px;
+        font-size: 12px;
+        display: inline-block;
+        text-decoration: none;
+        width: auto;
+    }
+</style>
+
+<h2>OnDemand - Treeview</h2>
+<div style="border:1px solid black; padding:0px;  background-color:#FAFAFA">
+    @{
+        <div class="treeview">
+            @{
+                if (Model != null)
+                {
+                    @*Here I will going to load Treeview menus*@
+                    <ul>
+                        <li name ="@Model.Name">
+                            <span class="collapse collapsible" data-loaded="false" >&nbsp;</span>
+                            <span>@Model.Name</span>
+                            <ul>
+                                @foreach (var i in Model.ChildNodes)
+                                {
+                                    <li name= "@i.Name">
+                                        <span class="collapse collapsible" data-loaded="false">&nbsp;</span>
+                                        @*<span class="collapse collapsible" data-loaded="false" pid="@i.MenuID">&nbsp;</span>*@
+                                        @* Here I have added the above span for collapsible button for treeview *@
+                                        @* and data-loaded="false" means its sub menu not loaded yet from database *@
+                                        <span>
+                                            @i.Name
+                                            @*<a href="@i.NavURL">@i.MenuName</a>*@
+                                        </span>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                }
+            }
+        </div>
+    }
+</div>
+
+@Scripts.Render(Url.Content("~/Scripts/MyTreeview.js"))
