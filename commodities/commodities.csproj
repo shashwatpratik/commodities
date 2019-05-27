@@ -188,8 +188,7 @@
     <Compile Include="Classes\BL\BLForNode.cs" />
     <Compile Include="Classes\Misc\MethodResultData.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="DAL\DALFisrtJson.cs" />
-    <Compile Include="DAL\DALSecondJson.cs" />
+    <Compile Include="DAL\DALJson.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

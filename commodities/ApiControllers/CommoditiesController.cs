@@ -16,7 +16,7 @@ namespace commodities.ApiControllers
     public class CommoditiesController : ApiController
     {
         /// <summary>
-        /// Function to load root data.
+        /// Function to load root node.
         /// </summary>
         /// <returns>Returns Node as data if success, else error messega.</returns>
         [HttpGet]
@@ -24,7 +24,7 @@ namespace commodities.ApiControllers
         {
             try
             {
-                return new BLForNode().GetNode(String.Empty);
+                return new BLForNode().GetNode("Crop commodities");
             }
             catch(Exception ex)
             {
