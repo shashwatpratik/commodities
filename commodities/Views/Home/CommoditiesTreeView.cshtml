@@ -1,0 +1,89 @@
+﻿@model commodities.Models.Node
+@{
+    ViewBag.Title = "CommoditiesTreeView";
+}
+<style>
+    .loadingP {
+        background-image: url('../Images/generated-image.gif');
+        width: 15px;
+        display: inline-block;
+    }
+
+    .collapse {
+        width: 15px;
+        background-image: url('../Images/ui-icons_454545_256x240.png');
+        background-repeat: no-repeat;
+        background-position: -36px -17px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .expand {
+        width: 15px;
+        background-image: url('../Images/ui-icons_454545_256x240.png');
+        background-repeat: no-repeat;
+        background-position: -50px -17px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .treeview ul {
+        font: 14px Arial, Sans-Serif;
+        margin: 0px;
+        padding-left: 20px;
+        list-style: none;
+    }
+
+    .treeview > li > a {
+        font-weight: bold;
+    }
+
+    .treeview li a {
+        padding: 4px;
+        font-size: 12px;
+        display: inline-block;
+        text-decoration: none;
+        width: auto;
+    }
+</style>
+    <div class="row">
+        <h2><br /></h2>
+        <h2><br /></h2>
+        <h2>Commodites Tree View</h2>
+    </div>
+<div class="row">
+    <div class="container" style="border:1px solid black; padding:0px;  background-color:#FAFAFA">
+
+        @{
+            <div class="treeview">
+                <div class="container">
+                    @{
+                        if (Model != null)
+                        {
+                            <ul>
+                                <li name="@Model.Name">
+                                    <span class="collapse collapsible" data-loaded="true">&nbsp;</span>
+                                    <span>@Model.Name</span>
+                                    <ul>
+                                        @foreach (var i in Model.ChildNodes)
+                                        {
+                                            <li name="@i.Name">
+                                                <span class="collapse collapsible" data-loaded="false">&nbsp;</span>
+                                                <span>
+                                                    @i.Name
+                                                </span>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                            </ul>
+                        }
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@Scripts.Render(Url.Content("~/Scripts/jquery-1.10.2.js"))
+@Scripts.Render(Url.Content("~/Scripts/jquery-1.10.2.min.js"))
+@Scripts.Render(Url.Content("~/Scripts/MyTreeview.js"))

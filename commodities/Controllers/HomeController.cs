@@ -16,7 +16,11 @@ namespace commodities.Controllers
 
             return View();
         }
-        public ActionResult GetRoot()
+        /// <summary>
+        /// Controller to load data from nodes in view.
+        /// </summary>
+        /// <returns>Returns view.</returns>
+        public ActionResult CommoditiesTreeView()
         {
             Node result = new CommoditiesController().GetNode().Data;
             return View(result);

@@ -3,19 +3,23 @@ $(document).ready(function () {
 
     $(".collapsible").live("click", function (e) {
         e.preventDefault();
-        var y = $(this);
         var path="";
-        var x = function (y) { 
-            if(y.parent().attr('name')!=null)
+        var call = function (rec)
+        {
+            if(rec.parent().attr('name')==null)
             {
-                path = y.parent().attr('name') + '\\' + path;
-                y = x(y.parent().parent());
+                return path;
+            }
+            else
+            {
+                path = rec.parent().attr('name') + '\\' + path;
+                return call(rec.parent().parent());
             }
         }
-        alert(path);
+        call($(this));
         var this1 = $(this); // Get Click item 
         var data = {
-            nodePath: $(this).parent().attr('name')
+            nodePath: path.substring(0, path.length - 1)
         };
         
         var isLoaded = $(this1).attr('data-loaded'); // Check data already loaded or not
@@ -41,7 +45,7 @@ $(document).ready(function () {
                         var $ul = $("<ul></ul>");
                         $.each(data.ChildNodes, function (i, ele) {
                             $ul.append(
-                                    $("<li></li>").append(
+                                    $("<li name ='"+ele.Name+"' ></li>").append(
                                         "<span class='collapse collapsible' data-loaded='false' Name='"+ele.Name+"'>&nbsp;</span>" + 
                                         "<span>" + ele.Name + "</span>"
                                     )
@@ -61,7 +65,7 @@ $(document).ready(function () {
                     $(this1).attr('data-loaded', true);
                 },
                 error: function () {
-                    alert("Error!");
+                    alert("Some error occured, please reload!");
                 }
             });
         }
